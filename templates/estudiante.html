@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+
+{% block title %}Estudiante{% endblock %} 
+
+{% block content %}
+
+<div class="container">
+    <div class="card shadow">
+        <div class="card-body">
+            <h5 class="card-title">Estudiantes</h5>
+
+
+            <!-- Botón para abrir modal de agregar oficina -->
+            <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#modalAgregarEstudiante">Agregar Estudiante</button>
+
+            <!-- Tabla -->
+            <table class="table table-bordered table table-striped table table-hover" id="dataTable">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nombre Estudiante</th>
+                        <th scope="col">Apellido Paterno</th>
+                        <th scope="col">Apellido Materno</th>
+                        <th scope="col">Edad Estudiante</th>
+                        <th scope="col">Dirección Estudiante</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for est in estudiantes %}
+                        <tr>
+                            <td>{{ est.idestudiante }}</td>
+                            <td>{{ est.nombreestudiante }}</td>
+                            <td>{{ est.apellidopaterno }}</td>
+                            <td>{{ est.apellidomaterno}}</td>
+                            <td>{{ est.edadestudiante }}</td>
+                            <td>{{ est.direccionestudiante }}</td>
+                            <td>
+                                <button type="button" class="btn btn-primary btn-sm" onclick="editarEstudiante('{{est.idestudiante}}', '{{ est.nombreestudiante }}', '{{ est.apellidopaterno }}', '{{ est.apellidomaterno }}', '{{ est.edadestudiante }}', '{{ est.direccionestudiante }}')">Editar</button>
+                            </td>
+                            <td><a href="{{ url_for('eliminar_estudiante', id_estudiante=est.idestudiante) }}" class="btn btn-danger btn-sm">Eliminar</a></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para agregar estudiante -->
+<div class="modal fade" id="modalAgregarEstudiante" tabindex="-1" aria-labelledby="modalAgregarEstudianteLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalAgregarEstudianteLabel">Agregar Estudiante</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="/estudiante/agregar" method="POST">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="nombreestudiante" class="form-label">Nombre Estudiante</label>
+                        <input type="text" class="form-control" id="nombreestudiante" name="nombreestudiante">
+                    </div>
+                    <div class="mb-3">
+                        <label for="apellidopaterno" class="form-label">Apellido Paterno</label>
+                        <input type="text" class="form-control" id="apellidopaterno" name="apellidopaterno">
+                    </div>
+                    <div class="mb-3">
+                        <label for="apellidomaterno" class="form-label">Apellido Materno</label>
+                        <input type="text" class="form-control" id="apellidomaterno" name="apellidomaterno">
+                    </div>
+                    <div class="mb-3">
+                        <label for="edadestudiante" class="form-label">Edad Estudiante</label>
+                        <input type="text" class="form-control" id="edadestudiante" name="edadestudiante">
+                    </div>
+                    <div class="mb-3">
+                        <label for="direccionestudiante" class="form-label">Dirección Estudiante</label>
+                        <input type="text" class="form-control" id="direccionestudiante" name="direccionestudiante">
+                    </div>
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+            </form>
+            
+            
+        </div>
+    </div>
+</div>
+<!-- Fin Modal para agregar estudiante -->
+
+<!-- Modal para editar estudiante -->
+<div class="modal fade" id="modalEditarEstudiante" tabindex="-1" aria-labelledby="modalEditarEstudianteLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+    <h5 class="modal-title" id="modalEditarEstudianteLabel">Editar Estudiante</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<form id="editarEstudianteForm" action="/estudiante/editar/" method="POST">
+
+    <div class="modal-body">
+        <input type="hidden" id="editarIdEstudiante" name="idestudiante">
+        <div class="mb-3">
+            <label for="editarnombreestudiante" class="form-label">Nombre Estudiante</label>
+            <input type="text" class="form-control" id="editarnombreestudiante" name="nombreestudiante">
+        </div>
+        <div class="mb-3">
+            <label for="editarapellidopaterno" class="form-label">Apellido Paterno</label>
+            <input type="text" class="form-control" id="editarapellidopaterno" name="apellidopaterno">
+        </div>
+        <div class="mb-3">
+            <label for="editarapellidomaterno" class="form-label">Apellido Materno</label>
+            <input type="text" class="form-control" id="editarapellidomaterno" name="apellidomaterno">
+        </div>
+        <div class="mb-3">
+            <label for="editaredadestudiante" class="form-label">Edad Estudiante</label>
+            <input type="text" class="form-control" id="editaredadestudiante" name="edadestudiante">
+        </div>
+        <div class="mb-3">
+            <label for="editardireccionestudiante" class="form-label">Dirección Estudiante</label>
+            <input type="text" class="form-control" id="editardireccionestudiante" name="direccionestudiante">
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+    </div>
+</form>
+</div>
+</div>
+</div>
+
+
+
+
+{% endblock content %}
+{% block javascripts %}
+<script src="{{ url_for('static', filename='js/scriptEstudiante.js') }}"></script>
+{% endblock javascripts %}
+
+
+
+</body>
+</html>

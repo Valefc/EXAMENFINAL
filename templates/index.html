@@ -1,0 +1,33 @@
+{% extends "base.html" %} 
+
+{% block title %}Nueva Plantilla{% endblock %}
+
+{% block content %}
+    <div class="outer-container">
+        <div class="inner-container">
+            <h1 class="header">Menú Principal</h1>
+            
+            <div class="description">
+                <p>Bienvenido al sistema de gestión de estudiantes de la Universidad XYZ. Aquí puedes ver y administrar los registros de todos los estudiantes inscritos en nuestra universidad. Usa el menú de navegación para acceder a las diferentes secciones.</p>
+            </div>
+            
+            <div class="info-section">
+                <h2>Registros de Estudiantes</h2>
+                <p>En esta sección, puedes agregar, actualizar o eliminar registros de estudiantes. Cada estudiante tiene un perfil detallado que incluye nombre, apellidos, edad y dirección.</p>
+            </div>
+            <div class="info-section">
+                <h2>Registros de Cursos</h2>
+                <p>En esta sección, puedes agregar, actualizar o eliminar registros de cursos. Cada curso tiene un perfil detallado que incluye nombre, descripción, y cantidad de créditos.</p>
+            </div>
+            <div class="info-section">
+                <h2>Registros de Matrículas</h2>
+                <p>En esta sección, puedes agregar, actualizar o eliminar registros de matrículas. Cada matrícula tiene un perfil detallado que incluye fecha, información del estudiante y del curso.</p>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block javascripts %}
+    <!-- Aquí puedes añadir tus scripts JS personalizados -->
+{% endblock javascripts %}
+

@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+
+{% block title %}Matricula{% endblock %} 
+
+{% block content %}
+
+<div class="container">
+    <div class="card shadow">
+        <div class="card-body">
+            <h5 class="card-title">Matricula</h5>
+
+
+            <!-- Botón para abrir modal de agregar oficina -->
+            <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#modalAgregarMatricula">Agregar Matricula</button>
+
+            <!-- Tabla -->
+            <table class="table table-bordered table table-striped table table-hover" id="dataTable">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Fecha Matriculación</th>
+                        <th scope="col">ID Estudiante</th>
+                        <th scope="col">ID Curso </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for mat in matriculas %}
+                        <tr>
+                            <td>{{ mat.idmatricula }}</td>
+                            <td>{{ mat.fechamatriculacion}}</td>
+                            <td>{{ mat.idestudiante }}</td>
+                            <td>{{ mat.idcurso}}</td>
+                            <td>
+                                <button type="button" class="btn btn-primary btn-sm" onclick="editarMatricula('{{mat.idmatricula}}', '{{ mat.fechamatriculacion }}', '{{ mat.idestudiante}}', '{{ mat.idcurso }}')">Editar</button>
+                            </td>
+                            <td><a href="{{ url_for('eliminar_matricula', id_matricula=mat.idmatricula) }}" class="btn btn-danger btn-sm">Eliminar</a></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para agregar matricula -->
+<div class="modal fade" id="modalAgregarMatricula" tabindex="-1" aria-labelledby="modalAgregarMatriculaLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalAgregarMatriculaLabel">Agregar Matricula</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="/matricula/agregar" method="POST">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="fechamatriculacion" class="form-label">Fecha Matriculación</label>
+                        <input type="text" class="form-control" id="fechamatriculacion" name="fechamatriculacion">
+                    </div>
+                    <div class="mb-3">
+                        <label for="idestudiante" class="form-label">ID Estudiante</label>
+                        <input type="text" class="form-control" id="idestudiante" name="idestudiante">
+                    </div>
+                    <div class="mb-3">
+                        <label for="idcurso" class="form-label">ID Curso</label>
+                        <input type="text" class="form-control" id="idcurso" name="idcurso">
+                    </div>
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+            </form>
+            
+            
+        </div>
+    </div>
+</div>
+<!-- Fin Modal para agregar matricula -->
+
+<!-- Modal para editar matricula -->
+<div class="modal fade" id="modalEditarMatricula" tabindex="-1" aria-labelledby="modalEditarMatriculaLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+    <h5 class="modal-title" id="modalEditarMatriculaLabel">Editar Matrícula</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<form id="editarMatriculaForm" action="/matricula/editar/" method="POST">
+
+    <div class="modal-body">
+        <input type="hidden" id="editarIdMatricula" name="idmatricula">
+        <div class="mb-3">
+            <label for="editarfechamatriculacion" class="form-label">Fecha Matriculación</label>
+            <input type="text" class="form-control" id="editarfechamatriculacion" name="fechamatriculacion">
+        </div>
+        <div class="mb-3">
+            <label for="editaridestudiante" class="form-label">ID Estudiante</label>
+            <input type="text" class="form-control" id="editaridestudiante" name="idestudiante">
+        </div>
+        <div class="mb-3">
+            <label for="editaridcurso" class="form-label">ID Curso</label>
+            <input type="text" class="form-control" id="editaridcurso" name="editaridcurso">
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+    </div>
+</form>
+</div>
+</div>
+</div>
+
+
+
+
+{% endblock content %}
+{% block javascripts %}
+<script src="{{ url_for('static', filename='js/scriptMatricula.js') }}"></script>
+{% endblock javascripts %}
+
+
+
+</body>
+</html>

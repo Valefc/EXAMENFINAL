@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+
+{% block title %}Curso{% endblock %} 
+
+{% block content %}
+
+<div class="container">
+    <div class="card shadow">
+        <div class="card-body">
+            <h5 class="card-title">Curso</h5>
+
+
+            <!-- Botón para abrir modal de agregar CURSO-->
+            <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#modalAgregarCurso">Agregar Curso</button>
+
+            <!-- Tabla -->
+            <table class="table table-bordered table table-striped table table-hover" id="dataTable">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nombre Curso</th>
+                        <th scope="col">Descripcion Curso </th>
+                        <th scope="col">Cantidad Creditos</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for cur in curso  %}
+                        <tr>
+                            <td>{{ cur.idcurso }}</td>
+                            <td>{{ cur.nombrecurso}}</td>
+                            <td>{{ cur.descripcioncurso}}</td>
+                            <td>{{ cur.cantidadcreditos}}</td>
+                            
+                            <td> 
+                                <button type="button" class="btn btn-primary btn-sm" onclick="editarCurso('{{cur.idcurso}}', '{{ cur.nombrecurso}}', '{{ cur.descripcioncurso}}', '{{ cur.cantidadcreditos}}')">Editar</button>
+                            </td>
+                            <td><a href="{{ url_for('eliminar_curso', id_curso=cur.idcurso) }}" class="btn btn-danger btn-sm">Eliminar</a></td>
+
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para agregar oficina -->
+            <div class="modal fade" id="modalAgregarCurso" tabindex="-1" aria-labelledby="modalAgregarCursoLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalAgregarCursoLabel">Agregar Curso</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form action="/curso/agregar" method="POST">
+                            <div class="modal-body">
+                                <div class="mb-3">
+                                    <label for="nombrecurso" class="form-label">Nombre Curso</label>
+                                    <input type="text" class="form-control" id="nombrecurso" name="nombrecurso">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="descripcioncurso" class="form-label">Descripción Curso </label>
+                                    <input type="text" class="form-control" id="descripcioncurso" name="descripcioncurso">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="cantidadcreditos" class="form-label">Cantidad Creditos</label>
+                                    <input type="text" class="form-control" id="cantidadcreditos" name="cantidadcreditos">
+                                </div>
+                                
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                <button type="submit" class="btn btn-primary">Guardar</button>
+                            </div>
+                        </form>
+                        
+                        
+                    </div>
+                </div>
+            </div>
+            <!-- Fin Modal para agregar CURSO-->
+<!-- Modal para editar oficina -->
+<div class="modal fade" id="modalEditarCurso" tabindex="-1" aria-labelledby="modalEditarCursoLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalEditarCursoLabel">Editar Curso</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="editarCursoForm" action="/curso/editar/" method="POST">
+                <input type="hidden" id="editaridcurso" name="idcurso">
+                    <div class="mb-3">
+
+                <div class="modal-body">
+                    <input type="hidden" id="editaridcurso" name="idcurso">
+                    <div class="mb-3">
+                        <label for="editarnombrecurso" class="form-label">Nombre Curso</label>
+                        <input type="text" class="form-control" id="editarnombrecurso" name="nombrecurso">
+                    </div>
+                    <div class="mb-3">
+                        <label for="editardescripcioncurso" class="form-label">Descripción Curso </label>
+                        <input type="text" class="form-control" id="editardescripcioncurso" name="descripcioncurso">
+                    </div>
+                    <div class="mb-3">
+                        <label for="editarcantidadcreditos" class="form-label">Cantidad Creditos</label>
+                        <input type="text" class="form-control" id="editarcantidadcreditos" name="cantidadcreditos">
+                    </div>
+                    
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{% endblock content %}
+{% block javascripts %}
+<script src="{{ url_for('static', filename='js/scriptCurso.js') }}"></script>
+
+{% endblock javascripts %}
+
+
+
+</body>
+</html>
