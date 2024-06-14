@@ -54,7 +54,7 @@ def editar_estudiante(id_estudiante):
     session = DBSession()
     if request.method == 'POST':
         # Modificar estudiante con los datos del formulario
-        Oficina.modificarEstudiante(session, id_estudiante,
+        Estudiante.modificarEstudiante(session, id_estudiante,
                                  nombreestudiante=request.form['nombreestudiante'],
                                  apellidopaterno=request.form['apellidopaterno'],
                                  apellidomaterno=request.form['apellidomaterno'],
