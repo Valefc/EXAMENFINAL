@@ -59,12 +59,22 @@
                         <input type="text" class="form-control" id="fechamatriculacion" name="fechamatriculacion">
                     </div>
                     <div class="mb-3">
-                        <label for="idestudiante" class="form-label">ID Estudiante</label>
-                        <input type="text" class="form-control" id="idestudiante" name="idestudiante">
+                        <label for="idestudiante" class="form-label">ID Estudiante (Nombre-Edad)</label>
+                        <select class="form-select" id="idEstudiante" name="idEstudiante" required>
+                            <option value="">Selecciona una opción</option>
+                            {% for estu in estudiante %}
+                                <option value="{{ estu.idestudiante }}">{{ estu.nombreestudiante}}-{{ estu.edadestudiante }}</option>
+                            {% endfor %}
+                        </select>
                     </div>
                     <div class="mb-3">
-                        <label for="idcurso" class="form-label">ID Curso</label>
-                        <input type="text" class="form-control" id="idcurso" name="idcurso">
+                        <label for="idcurso" class="form-label">ID Curso (Curso-Créditos)</label>
+                        <select class="form-select" id="idcurso" name="idcurso" required>
+                            <option value="">Selecciona una opción</option>
+                            {% for curs in cursos %}
+                                <option value="{{ curs.idcurso }}">{{ curs.nombrecurso}}-{{ curs.cantidadcreditos }}</option>
+                            {% endfor %}
+                        </select>
                     </div>
                     
                 </div>

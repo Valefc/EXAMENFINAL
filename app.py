@@ -130,8 +130,9 @@ def eliminar_curso(id_curso):
 def listar_matricula():
     session= DBSession()
     matriculas =session.query(Matricula).all()
-    session.close()
-    return render_template('matricula.html',matriculas=matriculas)
+    estudiante = session.query(Estudiante).all()
+    cursos= session.query(Curso).all()
+    return render_template('matricula.html',matriculas=matriculas,estudiante=estudiante, cursos=cursos)
 
 ### Agregar Matricula
 @app.route('/matricula/agregar', methods=['GET', 'POST'])
