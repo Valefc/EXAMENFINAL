@@ -106,7 +106,7 @@ def editar_curso(id_curso):
     if request.method == 'POST':
         # Modificar la Curso con los datos del formulario
         Curso.modificarCurso(session, id_curso,
-                                 nombrecurso=request.form['nombreestudiante'],
+                                 nombrecurso=request.form['nombrecurso'],
                                  descripcioncurso=request.form['descripcioncurso'],
                                  cantidadcreditos=request.form['cantidadcreditos'])  # Puede ser None
         session.close()

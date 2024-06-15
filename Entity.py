@@ -34,12 +34,12 @@ class Estudiante(Base):
 
     @staticmethod
     def modificarEstudiante(session, id_estudiante, **kwargs):
-        estudinate= session.query(Estudiante).filter_by(idestudinate=id_estudiante).first()
-        if estudinate:
+        estudiante= session.query(Estudiante).filter_by(idestudiante=id_estudiante).first()
+        if estudiante:
             for key, value in kwargs.items():
-                setattr(estudinate, key, value)
+                setattr(estudiante, key, value)
             session.commit()
-            print('Estudinate actualizado')
+            print('Estudiante actualizado')
         else:
             print('Estudiante no encontrado')
             
